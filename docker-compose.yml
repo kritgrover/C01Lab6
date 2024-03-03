@@ -1,0 +1,29 @@
+services:
+  backend:
+    image: kritgrover/quirknotes_backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile_backend
+      target: backend
+    ports:
+      - "4000:4000"
+    environment:
+      - ENV=Docker
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  frontend:
+    image: kritgrover/quirknotes_frontend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile_frontend
+      target: frontend
+    environment:
+      - ENV=Docker
+    ports:
+      - "3000:80"
